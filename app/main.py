@@ -2,7 +2,7 @@ import streamlit as st
 from services import utils
 from services.config import read_config
 import yfinance as yf
-from rich import inspect
+
 
 def get_data(symbol):
     """Get data from config.toml
@@ -38,6 +38,7 @@ def get_matrics():
         })
     return sorted(matrics, key=lambda x: x['meta']['percent_to_target'])
 
+
 def render_metrics(matrics, num_cols=4):
     chunks = utils.chunkify(matrics, num_cols)
     cols = st.columns(num_cols)
@@ -54,4 +55,11 @@ def render_metrics(matrics, num_cols=4):
                     st.write(f"📊 :red[{matric['meta']['recommendationKey']}]")
                 st.divider()
 
-render_metrics(get_matrics(), num_cols=4)
+
+def main():
+    st.title("Stockdash")
+    render_metrics(get_matrics(), num_cols=4)
+
+
+if __name__ == "__main__":
+    main()
