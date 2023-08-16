@@ -13,7 +13,7 @@ def get_data(symbol):
             return stock
 
 
-# @st.cache_data(ttl=60)
+@st.cache_data(ttl=3600)
 def get_matrics():
     """Get matrics from yfinance and build a list of matrics
     """
@@ -44,10 +44,14 @@ def render_metrics(matrics, num_cols=4):
     for i in range(num_cols):
         with cols[i]:
             for matric in chunks[i]:
+                recommedationKey = matric['meta']['recommendationKey']
                 st.metric(**matric['metric'])
-                st.write(f"💰{matric['meta']['cost']}")
-                st.write(f"🎯{matric['meta']['targetMeanPrice']} ({matric['meta']['percent_to_target']:.0f}%)")
-                st.write(f"📊{matric['meta']['recommendationKey']}")
-
+                st.write(f"💰 {matric['meta']['cost']}")
+                st.write(f"🎯 {matric['meta']['targetMeanPrice']} ({matric['meta']['percent_to_target']:.0f}%)")
+                if recommedationKey == 'buy':
+                    st.write(f"📊 :blue[{matric['meta']['recommendationKey']}]")
+                else:
+                    st.write(f"📊 :red[{matric['meta']['recommendationKey']}]")
+                st.divider()
 
 render_metrics(get_matrics(), num_cols=4)
