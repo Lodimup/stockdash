@@ -1,0 +1,9 @@
+[[stocks]]
+symbol = "AAPL"
+cost = 26.29
+shares = 1900
+
+[[stocks]]
+symbol = "MSFT"
+cost = 76.13
+shares = 500

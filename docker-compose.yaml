@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: stockdash
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8501:8501
